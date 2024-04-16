@@ -1,11 +1,8 @@
 ---
 # potential vars
-#   port:
-#     port: <port>/<protocol>
-#     state: <enabled/disabled>
-#   service:
-#     service: <service>
-#     state: <enabled/disabled>
+#   port: <port>/<protocol>
+#   service: <service>
+#   state: <enabled/disabled>
 
 - name: Install and configure firewalld
   hosts: "{{ _hosts }}"
@@ -29,8 +26,8 @@
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        state: "{{ service.state }}"
-        service: "{{ service.service }}"
+        state: "{{ service }}"
+        service: "{{ state }}"
       when: service is defined
 
     - name: Add/remove firewalld port permanently and reload
@@ -38,6 +35,6 @@
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        port: "{{ port.port }}"
-        state: "{{ port.state }}"
+        port: "{{ port }}"
+        state: "{{ state }}"
       when: port is defined
