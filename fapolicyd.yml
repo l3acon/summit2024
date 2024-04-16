@@ -1,0 +1,17 @@
+---
+- name: Install and configure fapolicyd
+  hosts: "{{ _hosts }}"
+  become: true
+  tasks:
+    - name: Install fapolicyd
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.builtin.package:
+        name: fapolicyd
+        state: present
+
+    - name: Enable and start fapolicyd
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.builtin.service:
+        name: fapolicyd
+        state: started
+        enabled: true

@@ -1,0 +1,44 @@
+---
+# potential vars
+# firewalld:
+#   port:
+#     port: <port>/<protocol>
+#     state: <enabled/disabled>
+#   service:
+#     service: <service>
+#     state: <enabled/disabled>
+
+- name: Install and configure firewalld
+  hosts: "{{ _hosts }}"
+  become: true
+  tasks:
+    - name: Ensure Firewalld packages are installed
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+
+    - name: Ensure Firewalld service is enabled and started
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Add/remove firewalld service permanently and reload
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.posix.firewalld:
+        permanent: true
+        immediate: true
+        state: "{{ firewalld.service.state }}"
+        service: "{{ fireawlld.service.service }}"
+      when: firewalld.service is defined
+
+    - name: Add/remove firewalld port permanently and reload
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.posix.firewalld:
+        permanent: true
+        immediate: true
+        port: "{{ firewalld.port.port }}"
+        state: "{{ firewalld.port.state }}"
+      when: firewalld.port is defined

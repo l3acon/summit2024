@@ -1,0 +1,23 @@
+---
+- name: Ensure SELinux configured and enforcing
+  hosts: "{{ _hosts }}"
+  become: true
+  tasks:
+    - name: Ensure package_facts are gathered 
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Ensure SELinux is enforcing
+      # Content suggestion provided by Ansible Lightspeed
+      ansible.posix.selinux:
+        policy: targeted
+        state: enforcing
+
+#    - name: Ensure httpd policy is applied when httpd is installed
+#      # Content suggestion provided by Ansible Lightspeed
+#      ansible.builtin.assert:
+#        that:
+#          - ansible_facts.packages['httpd'] is defined
+#          - ansible_facts.packages['httpd'] | length > 0
+#
