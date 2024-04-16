@@ -1,6 +1,5 @@
 ---
 # potential vars
-# firewalld:
 #   port:
 #     port: <port>/<protocol>
 #     state: <enabled/disabled>
@@ -30,15 +29,15 @@
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        state: "{{ firewalld.service.state }}"
-        service: "{{ fireawlld.service.service }}"
-      when: firewalld.service is defined
+        state: "{{ service.state }}"
+        service: "{{ service.service }}"
+      when: service is defined
 
     - name: Add/remove firewalld port permanently and reload
       # Content suggestion provided by Ansible Lightspeed
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        port: "{{ firewalld.port.port }}"
-        state: "{{ firewalld.port.state }}"
-      when: firewalld.port is defined
+        port: "{{ port.port }}"
+        state: "{{ port.state }}"
+      when: port is defined
