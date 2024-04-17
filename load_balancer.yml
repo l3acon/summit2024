@@ -6,7 +6,7 @@
 #   lb_backend_protocol: <load blancer protocol>
 
 - name: Generate and configure external load balancer
-  hosts: "{{ _hosts }}"
+  hosts: load_balancers
   become: true
   tasks:
     - name: Build configuration
