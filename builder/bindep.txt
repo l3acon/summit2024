@@ -1,0 +1,4 @@
+pkgconf-pkg-config
+libvirt-libs
+python3-libvirt
+

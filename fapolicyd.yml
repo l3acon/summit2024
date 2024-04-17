@@ -1,4 +1,7 @@
 ---
+# vars:
+#   fapolicy_state: <started/stopped/restarted>
+
 - name: Install and configure fapolicyd
   hosts: "{{ _hosts }}"
   become: true
@@ -13,5 +16,5 @@
       # Content suggestion provided by Ansible Lightspeed
       ansible.builtin.service:
         name: fapolicyd
-        state: started
+        state: "{{ fapolicy_state }}"
         enabled: true
