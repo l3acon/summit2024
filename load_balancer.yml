@@ -1,8 +1,9 @@
 ---
 # vars:
-#   ansible_hostname: <hostname LB points to>
+#   lb_server_name: <hostname lb exposes>
+#   lb_target: <hostname LB points to>
 #   lb_domain: <load balancer domain>
-#   lb_protocol: <load blancer protocol>
+#   lb_backend_protocol: <load blancer protocol>
 
 - name: Generate and configure external load balancer
   hosts: "{{ _hosts }}"
