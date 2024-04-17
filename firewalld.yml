@@ -4,7 +4,7 @@
 #   firewalld_service: <service>
 #   firewalld_state: <enabled/disabled>
 
-- name: Install and configure firewalld
+- name: Install and configure host firewall
   hosts: "{{ _hosts }}"
   become: true
   tasks:

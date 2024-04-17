@@ -12,7 +12,7 @@
         name: fapolicyd
         state: present
 
-    - name: Enable and start fapolicyd
+    - name: Configure fapolicyd service
       # Content suggestion provided by Ansible Lightspeed
       ansible.builtin.service:
         name: fapolicyd
