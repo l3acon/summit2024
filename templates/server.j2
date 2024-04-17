@@ -1,4 +1,7 @@
 # file managed by ansible
+{% if lb_disable %}
+# nothing to see here
+{% else %}
 server {
     listen 443 ssl;
     server_name {{ lb_server_name }}.{{ lb_domain }};
@@ -13,3 +16,4 @@ server {
         proxy_pass {{ lb_backend_protocol }}://{{ lb_target }}.{{ lb_domain }};
     }
 }
+{% endif %}

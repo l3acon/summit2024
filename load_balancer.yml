@@ -1,5 +1,6 @@
 ---
 # vars:
+#   lb_disable: false
 #   lb_server_name: <hostname lb exposes>
 #   lb_target: <hostname LB points to>
 #   lb_domain: <load balancer domain>
