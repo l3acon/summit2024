@@ -1,5 +1,5 @@
 # file managed by ansible
-{% if lb_disable %}
+{% if lb_disable|bool %}
 # nothing to see here
 {% else %}
 server {
