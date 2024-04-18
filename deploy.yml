@@ -1,0 +1,7 @@
+---
+- name: Deploy webapp
+  hosts: all
+  tasks: 
+    - name: include role
+      ansible.builtin.include_role:
+        name: importantapp
