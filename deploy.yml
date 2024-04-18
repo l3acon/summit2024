@@ -1,6 +1,7 @@
 ---
 - name: Deploy webapp
   hosts: all
+  become: true
   tasks: 
     - name: include role
       ansible.builtin.include_role:
