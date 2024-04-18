@@ -52,9 +52,5 @@
   meta: flush_handlers
 
 - name: Wait for webapp to be available
-  ansible.builtin.uri:
-    url: http://importantapp
-  register: result
-  until: "result.status == 200"
-  retries: 5
-  delay: 1
+  ansible.builtin.wait_for:
+    port: 80
