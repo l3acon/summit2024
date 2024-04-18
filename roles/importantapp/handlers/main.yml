@@ -2,8 +2,3 @@
   ansible.builtin.service:
     state: restarted
     name: nginx
-
-- name: Reload firewall
-  ansible.builtin.systemd:
-      name: firewalld
-      state: reloaded

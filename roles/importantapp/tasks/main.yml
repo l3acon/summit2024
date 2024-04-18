@@ -3,14 +3,14 @@
   ansible.builtin.dnf: 
     name: nginx
     state: present
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Create site directory
   ansible.builtin.file:
     path: /var/www/
     state: directory
     recurse: true
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Untar archive
   ansible.builtin.unarchive:
@@ -40,7 +40,7 @@
   ansible.builtin.copy:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Start nginx service
   ansible.builtin.service:
