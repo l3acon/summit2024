@@ -1,3 +1,5 @@
+# vars:
+#   se_state: <enforcing/permissive/disabled>"
 ---
 - name: Ensure SELinux configured and enforcing
   hosts: "{{ _hosts }}"
@@ -12,7 +14,7 @@
       # Content suggestion provided by Ansible Lightspeed
       ansible.posix.selinux:
         policy: targeted
-        state: enforcing
+        state: "{{ se_state }}"
 
 #    - name: Ensure httpd policy is applied when httpd is installed
 #      # Content suggestion provided by Ansible Lightspeed
