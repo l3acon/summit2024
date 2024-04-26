@@ -1,0 +1,59 @@
+---
+- name: Install nginx
+  ansible.builtin.dnf: 
+    name: nginx
+    state: present
+  notify: Restart nginx
+
+- name: Create site directory
+  ansible.builtin.file:
+    path: /var/www/
+    state: directory
+    recurse: true
+  notify: Restart nginx
+
+- name: Untar archive
+  ansible.builtin.unarchive:
+    setype: httpd_sys_content_t
+    owner: nginx
+    group: nginx
+    src: site.tar.gz
+    dest: /var/www/
+  notify: Restart nginx
+
+#- name: manage files in /var/www/
+#  community.general.sefcontext:
+#    target: '/var/www/html(/.*)?'
+#    setype: httpd_sys_content_t
+#    state: present
+
+#- name: Apply new SELinux file context to filesystem if files were unarchived
+#  community.general.sefcontext:
+#    target: /var/www/html(/.*)?
+#    setype: httpd_sys_content_t
+#    state: present
+#  register: context
+#  when: unarchive.changed
+#
+#- name: Apply new SELinux file context to filesystem
+#  ansible.builtin.command: restorecon -irv /var/www/html/
+#  when: context.changed
+
+- name: Create site directory
+  ansible.builtin.copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+  notify: Restart nginx
+
+- name: Start nginx service
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Refresh handlers
+  meta: flush_handlers
+
+- name: Wait for webapp to be available
+  ansible.builtin.wait_for:
+    port: 80
