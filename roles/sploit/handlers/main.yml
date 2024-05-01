@@ -1,4 +1,4 @@
-- name: Restart nginx
+- name: Run badness
   ansible.builtin.service:
     state: restarted
     name: nginx

