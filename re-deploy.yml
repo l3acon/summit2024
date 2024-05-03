@@ -1,0 +1,12 @@
+---
+- name: Re-deploy webapp w/1337 haxorz
+  hosts: all
+  become: true
+  tasks: 
+    - name: include role
+      ansible.builtin.include_role:
+        name: importantapp
+
+    - name: include role
+      ansible.builtin.include_role:
+        name: sploit
