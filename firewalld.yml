@@ -26,8 +26,8 @@
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        state: "{{ firewalld_service }}"
-        service: "{{ firewalld_state }}"
+        state: "{{ firewalld_state }}"
+        service: "{{ firewalld_service }}"
       when: firewalld_service is defined
 
     - name: Add/remove firewalld port permanently and reload
