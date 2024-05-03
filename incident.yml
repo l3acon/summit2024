@@ -24,7 +24,7 @@
   
     - name: Update incident 
       servicenow.itsm.incident:
-        number: "{{ incident_record_number }}"
+        number: "{{ ansible_eda.event.payload.number }}"
         state: in_progress
         other:
           comments: "Ansible is attempting something\n
@@ -34,7 +34,7 @@
 
     - name: Close incident
       servicenow.itsm.incident:
-        number: "{{ incident_record_number }}"
+        number: "{{ ansible_eda.event.payload.number }}"
         state: resolved
         close_code: "Solved Remotely (Permanently)"
         close_notes: "Closed"
@@ -47,6 +47,6 @@
     - name: Debug output for created incident
       ansible.builtin.debug:
         msg: 
-          - "{{ incident }}"
-          - "{{ incident.record.number }}"
+          - "{{ incident | default(ansible_eda.event) }}"
+          - "{{ incident.record.number |default(ansible_eda.event.payload.number) }}"
  
