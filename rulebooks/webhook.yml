@@ -9,6 +9,6 @@
       condition: event.badness is defined
       action:
         run_workflow_template:
-          name: Badness Detected
+          name: Scan Webapp Workflow
           organization: Default
 
