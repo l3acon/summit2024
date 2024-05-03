@@ -1,0 +1,52 @@
+- name: Manage ServiceNow incident 
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create incident
+      servicenow.itsm.incident:
+        state: new
+        caller: admin
+        short_description: Badness detected.
+        description: A security event has been detemined to require immediate attention.
+        impact: high
+        urgency: high 
+      register: incident
+      check_mode: false
+      tags:
+        - create
+  
+    - name: Export incident data for AAP workflow
+      ansible.builtin.set_stats:
+        data:
+          incident_record_number: "{{ incident.record.number }}"
+      tags:
+        - create
+  
+    - name: Update incident 
+      servicenow.itsm.incident:
+        number: "{{ incident_record_number }}"
+        state: in_progress
+        other:
+          comments: "Ansible is attempting something\n
+          See [code]<a href=\"https://ctrl.lab.cheeseburgia.com/#/jobs/workflow/{{ awx_workflow_job_id }}/output\" target=\"_blank\">Ansible Controller</a>[/code] for Status"
+      tags:
+        - update
+
+    - name: Close incident
+      servicenow.itsm.incident:
+        number: "{{ incident_record_number }}"
+        state: resolved
+        close_code: "Solved Remotely (Permanently)"
+        close_notes: "Closed"
+        caller: "admin"
+        description: "Puppes have been protected, at least for now."
+        short_description: "{{ ansible_date_time.iso8601_micro }}"
+      tags:
+        - close
+  
+    - name: Debug output for created incident
+      ansible.builtin.debug:
+        msg: 
+          - "{{ incident }}"
+          - "{{ incident.record.number }}"
+ 

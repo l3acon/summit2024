@@ -1,5 +1,5 @@
 ---
-- name: Deploy webapp
+- name: Run exploit
   hosts: all
   become: false
   tasks: 

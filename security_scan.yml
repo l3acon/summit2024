@@ -1,0 +1,8 @@
+- name: Run our completely-not-at-all-contrived security scanner
+  hosts: all
+  become: true
+  tasks:
+    - name: include importanapp scan tasks
+      ansible.builtin.include_role:
+        name: importantapp
+        tasks_from: scan
