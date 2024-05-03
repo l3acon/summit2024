@@ -8,10 +8,10 @@
 
 - name: Debug register output
   ansible.builtin.debug:
-    msg: "{{ app_files_stat }}"
+    msg: "{{ app_files_stat.results }}"
 
 - name: Assert checksums are valid
   ansible.builtin.assert:
     that:
       - item.0.stat.checksum == item.1.checksum
-  loop: "{{ app_files_stat | zip(scan_vars) | list }}"
+  loop: "{{ app_files_stat.results | zip(scan_vars) | list }}"
