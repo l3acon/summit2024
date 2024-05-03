@@ -7,9 +7,6 @@
 - name: Install and configure host firewall
   hosts: "{{ _hosts }}"
   become: true
-  vars:
-    _port: "{{ firewalld_port | default(omit) }}"
-    _service: "{{ firewalld_service | default(omit) }}"
   tasks:
     - name: Ensure Firewalld packages are installed
       # Content suggestion provided by Ansible Lightspeed
@@ -30,14 +27,18 @@
         permanent: true
         immediate: true
         state: "{{ firewalld_state }}"
-        service: "{{ _service }}"
-      when: firewalld_service is defined
+        service: "{{ firewalld_service }}"
+      when: 
+        - firewalld_service is defined
+        - firewalld_service | length > 0
 
     - name: Add/remove firewalld port permanently and reload
       # Content suggestion provided by Ansible Lightspeed
       ansible.posix.firewalld:
         permanent: true
         immediate: true
-        port: "{{ _port }}"
+        port: "{{ firewalld_port }}"
         state: "{{ firewalld_state }}"
-      when: firewalld_port is defined
+      when: 
+        - firewalld_port is defined
+        - firewalld_port | length > 0
