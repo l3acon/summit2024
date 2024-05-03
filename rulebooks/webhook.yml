@@ -12,3 +12,9 @@
           name: Scan Webapp Workflow
           organization: Default
 
+    - name: Webhook event
+      condition: event.payload is defined
+      action:
+        debug:
+          msg: "recieved event! {{ event.payload }}"
+
