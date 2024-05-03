@@ -27,8 +27,8 @@
         number: "{{ ansible_eda.event.payload.number }}"
         state: in_progress
         other:
-          comments: "Ansible is attempting something\n
-          See [code]<a href=\"https://ctrl.lab.cheeseburgia.com/#/jobs/workflow/{{ awx_workflow_job_id }}/output\" target=\"_blank\">Ansible Controller</a>[/code] for Status"
+          comments: "Ansible needs your help rescuing puppies!\n
+          Quick go to [code]<a href=\"https://ctrl.lab.cheeseburgia.com/#/jobs/workflow/{{ awx_workflow_job_id }}/output\" target=\"_blank\">Ansible Controller</a>[/code]"
       tags:
         - update
 
