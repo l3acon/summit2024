@@ -8,7 +8,8 @@
 
 - name: Debug register output
   ansible.builtin.debug:
-    msg: "{{ app_files_stat.results }}"
+    msg: "{{ item }}"
+  loop: app_files_stat.results 
 
 - name: Assert checksums are valid
   ansible.builtin.assert:
