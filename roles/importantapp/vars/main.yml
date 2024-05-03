@@ -1,6 +1,6 @@
 ---
 scan_vars:
-  - path: /var/www/html/index.hml
+  - path: /var/www/html/index.html
     checksum: 330149295b0c6d37275dedac7f92a8c13eb87b40
   - path: /var/www/html/images/ginger.png
     checksum: 05d2a00937a8622e8d050ec9b6a9ca84346ad879

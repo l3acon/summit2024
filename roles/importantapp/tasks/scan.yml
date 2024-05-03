@@ -6,12 +6,8 @@
   loop: "{{ scan_vars }}"
   register: app_files_stat
 
-- name: Debug register output
-  ansible.builtin.debug:
-    msg: "{{ app_files_stat.results | zip(scan_vars) | list }}"
-
 - name: Assert checksums are valid
   ansible.builtin.assert:
     that:
       - item.0.stat.checksum == item.1.checksum
-  loop: "{{ app_files_stat.results | zip(scan_vars) | list }}"
+  loop: "{{ app_files_stat.results |flatten | zip(scan_vars) | list }}"
