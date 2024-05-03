@@ -3,15 +3,17 @@
   hosts: all
   sources:
     - ansible.eda.webhook:
-        port: 9001
+        port: 9000
   rules:
-    - name: Run Scan Webapp
-      condition: event.payload is defined
-      throttle:
-        once_within: 60 seconds
-        group_by_attributes:
-          - event.payload.badness
+    - name: Attempt puppy rescue
+      condition: event.payload.number is defined
       action:
         run_workflow_template:
-          name: Scan Webapp Workflow
+          name: Rescue Webapp Workflow
           organization: Default
+
+    - name: Shutdown
+      condition: event.payload.shutdown is defined
+      action:
+        shutdown:
+
