@@ -41,6 +41,8 @@
         caller: "admin"
         description: "Puppes have been protected, at least for now."
         short_description: "{{ ansible_date_time.iso8601_micro }}"
+      when:
+        - ansible_eda.event.payload.number is defined
       tags:
         - close
   

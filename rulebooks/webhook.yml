@@ -5,16 +5,13 @@
     - ansible.eda.webhook:
         port: 9001
   rules:
-    - name: Webhook event
-      condition: event.badness is defined
+    - name: Run Scan Webapp
+      condition: event.payload is defined
+      throttle:
+        once_within: 60 seconds
+        group_by_attributes:
+          - event.payload.badness
       action:
         run_workflow_template:
           name: Scan Webapp Workflow
           organization: Default
-
-    - name: Webhook event
-      condition: event.payload is defined
-      action:
-        debug:
-          msg: "recieved event! {{ event.payload }}"
-
